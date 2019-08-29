@@ -120,6 +120,9 @@ public class Util {
     String blockID = ByteArray.toHexString(blockCapsule.getBlockId().getBytes());
     JSONObject jsonObject = JSONObject.parseObject(JsonFormat.printToString(block, selfType));
     jsonObject.put("blockID", blockID);
+    if(jsonObject.get("transactions") != null){
+      jsonObject.remove("transactions");
+    }
 /*    if (!blockCapsule.getTransactions().isEmpty()) {
       jsonObject.put("transactions", printTransactionListToJSON(blockCapsule.getTransactions(),
           selfType));
