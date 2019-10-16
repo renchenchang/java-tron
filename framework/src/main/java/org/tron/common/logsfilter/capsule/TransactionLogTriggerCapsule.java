@@ -17,6 +17,7 @@ import org.tron.common.logsfilter.trigger.InternalTransactionPojo;
 import org.tron.common.logsfilter.trigger.TransactionLogTrigger;
 import org.tron.common.runtime.InternalTransaction;
 import org.tron.common.runtime.ProgramResult;
+import org.tron.common.utils.WalletUtil;
 import org.tron.core.Wallet;
 import org.tron.core.capsule.BlockCapsule;
 import org.tron.core.capsule.TransactionCapsule;
@@ -160,8 +161,8 @@ public class TransactionLogTriggerCapsule extends TriggerCapsule {
       item.setHash(Hex.toHexString(internalTransaction.getHash()));
       item.setCallValue(internalTransaction.getValue());
       item.setTokenInfo(internalTransaction.getTokenInfo());
-      item.setCaller_address(Hex.toHexString(internalTransaction.getSender()));
-      item.setTransferTo_address(Hex.toHexString(internalTransaction.getTransferToAddress()));
+      item.setCaller_address(WalletUtil.encode58Check(internalTransaction.getSender()));
+      item.setTransferTo_address(WalletUtil.encode58Check(internalTransaction.getTransferToAddress()));
       item.setData(Hex.toHexString(internalTransaction.getData()));
       item.setRejected(internalTransaction.isRejected());
       item.setNote(internalTransaction.getNote());
