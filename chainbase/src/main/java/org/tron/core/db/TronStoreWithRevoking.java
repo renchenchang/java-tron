@@ -128,11 +128,15 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
 
   @Override
   public T getUnchecked(byte[] key) {
-    byte[] value = revokingDB.getUnchecked(key);
 
+    byte[] value = revokingDB.getUnchecked(key);
+    if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
+      logger.info("### get db: {} , key : {}, value: {}", getClass(), Hex.toHexString(key), value);
+    }
     try {
       return of(value);
     } catch (BadItemException e) {
+      logger.error("### BadItemException.", e);
       return null;
     }
   }
