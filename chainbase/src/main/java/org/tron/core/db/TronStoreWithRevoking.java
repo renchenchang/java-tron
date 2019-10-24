@@ -22,6 +22,7 @@ import org.tron.common.utils.DBConfig;
 import org.tron.core.capsule.ProtoCapsule;
 import org.tron.core.db2.common.DB;
 import org.tron.core.db2.common.IRevokingDB;
+import org.tron.core.db2.common.Key;
 import org.tron.core.db2.common.LevelDB;
 import org.tron.core.db2.common.RocksDB;
 import org.tron.core.db2.core.Chainbase;
@@ -106,8 +107,18 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
     if (Objects.isNull(key) || Objects.isNull(item)) {
       return;
     }
-
     revokingDB.put(key, item.getData());
+    get2(key);
+  }
+
+  private void get2(byte[] key) {
+    if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
+      try {
+        revokingDB.get(key);
+      }catch (Exception e) {
+      }
+      revokingDB.getUnchecked(key);
+    }
   }
 
   @Override
@@ -131,12 +142,18 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
 
     byte[] value = revokingDB.getUnchecked(key);
     if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
-      logger.info("### get db: {} , key : {}, value: {}", getClass(), Hex.toHexString(key), value);
+      logger.info("### get 2 db: {} , key : {}, value: {}", getClass(), Hex.toHexString(key), value);
     }
     try {
       return of(value);
     } catch (BadItemException e) {
       logger.error("### BadItemException.", e);
+      if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
+        try {
+          revokingDB.get(key);
+        }catch (Exception e3) {
+        }
+      }
       return null;
     }
   }
