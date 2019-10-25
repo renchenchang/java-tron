@@ -114,10 +114,10 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
   private void get2(byte[] key) {
     if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
       try {
-        revokingDB.get(key);
+        logger.info("### @@@1 {}, {}", revokingDB.has(key), revokingDB.get(key));
       }catch (Exception e) {
       }
-      revokingDB.getUnchecked(key);
+      logger.info("### @@@2 {}, {}", revokingDB.has(key), revokingDB.getUnchecked(key));
     }
   }
 
@@ -150,7 +150,7 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
       logger.error("### BadItemException.", e);
       if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
         try {
-          revokingDB.get(key);
+          logger.info("### @@@3 {}, {}", revokingDB.has(key), revokingDB.get(key));
         }catch (Exception e3) {
         }
       }
