@@ -1043,7 +1043,9 @@ public class Manager {
       ReceiptCheckErrException, VMIllegalException, ZksnarkException {
     long start = System.currentTimeMillis();
     try (PendingManager pm = new PendingManager(this)) {
-
+      if (block.getNum() == 50000) {
+        System.exit(0);
+      }
       if (!block.generatedByMyself) {
         if (!block.validateSignature(this.dynamicPropertiesStore, this.accountStore)) {
           logger.warn("The signature is not validated.");
