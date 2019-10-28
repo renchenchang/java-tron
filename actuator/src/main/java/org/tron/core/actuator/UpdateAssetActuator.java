@@ -1,5 +1,6 @@
 package org.tron.core.actuator;
 
+import com.google.common.collect.Streams;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,10 @@ public class UpdateAssetActuator extends AbstractActuator {
 
       AssetIssueStore assetIssueStoreV2 = assetIssueV2Store;
       assetIssueCapsuleV2 = assetIssueStoreV2.get(accountCapsule.getAssetIssuedID().toByteArray());
-
+      Streams.stream(assetIssueStoreV2.getRevokingDB().iterator());
+      if (assetIssueCapsuleV2 == null) {
+        System.out.println("===");
+      }
       assetIssueCapsuleV2.setFreeAssetNetLimit(newLimit);
       assetIssueCapsuleV2.setPublicFreeAssetNetLimit(newPublicLimit);
       assetIssueCapsuleV2.setUrl(newUrl);

@@ -251,6 +251,10 @@ public class SnapshotManager implements RevokingDatabase {
       return;
     }
 
+    Map<String, Chainbase> dbMap = dbs.stream()
+        .map(db2 -> Maps.immutableEntry(db2.getDbName(), db2))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
     List<Snapshot> snapshots = new ArrayList<>();
 
     SnapshotRoot root = (SnapshotRoot) db.getHead().getRoot();

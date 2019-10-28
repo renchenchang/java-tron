@@ -49,6 +49,9 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
   protected TronStoreWithRevoking(String dbName) {
     int dbVersion = DBConfig.getDbVersion();
     String dbEngine = DBConfig.getDbEngine();
+    if (dbName.equals("asset-issue-v2")) {
+      System.out.println("===1");
+    }
     if (dbVersion == 1) {
       this.revokingDB = new RevokingDBWithCachingOldValue(dbName);
     } else if (dbVersion == 2) {
@@ -103,6 +106,12 @@ public abstract class TronStoreWithRevoking<T extends ProtoCapsule> implements I
     if (getClass() == AssetIssueStore.class || getClass() == AssetIssueV2Store.class) {
       logger.info("### put db: {} , key : {}, item: {}, date: {} ", getClass(), Hex.toHexString(key), item,
           item == null? null : item.getData());
+      logger.info("### put all ####");
+      Streams.stream(revokingDB.iterator()).forEach(
+          entry -> {
+            logger.info("### put key{}, value{} ####", Hex.toHexString(entry.getKey()), key);
+          }
+      );
     }
     if (Objects.isNull(key) || Objects.isNull(item)) {
       return;
