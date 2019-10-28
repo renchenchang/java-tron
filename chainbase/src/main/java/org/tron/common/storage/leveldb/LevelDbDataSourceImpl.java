@@ -42,6 +42,7 @@ import org.iq80.leveldb.DBIterator;
 import org.iq80.leveldb.Options;
 import org.iq80.leveldb.WriteBatch;
 import org.iq80.leveldb.WriteOptions;
+import org.tron.common.storage.WriteOptionsWrapper;
 import org.tron.common.utils.DBConfig;
 import org.tron.common.utils.FileUtil;
 import org.tron.core.db.common.DbSourceInter;
@@ -372,6 +373,35 @@ public class LevelDbDataSourceImpl implements DbSourceInter<byte[]>,
         }
       });
       database.write(batch, writeOptions);
+    }
+  }
+
+  private void updateByBatchInner(Map<byte[], byte[]> rows, WriteOptions options) throws Exception {
+    try (WriteBatch batch = database.createWriteBatch()) {
+      rows.forEach((key, value) -> {
+        if (value == null) {
+          batch.delete(key);
+        } else {
+          batch.put(key, value);
+        }
+      });
+      database.write(batch, options);
+    }
+  }
+
+  @Override
+  public void updateByBatch(Map<byte[], byte[]> rows, WriteOptionsWrapper options) {
+    resetDbLock.readLock().lock();
+    try {
+      updateByBatchInner(rows, options.level);
+    } catch (Exception e) {
+      try {
+        updateByBatchInner(rows, options.level);
+      } catch (Exception e1) {
+        throw new RuntimeException(e);
+      }
+    } finally {
+      resetDbLock.readLock().unlock();
     }
   }
 

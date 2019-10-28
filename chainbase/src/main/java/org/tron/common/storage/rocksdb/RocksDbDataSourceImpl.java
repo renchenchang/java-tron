@@ -26,6 +26,7 @@ import org.rocksdb.RocksIterator;
 import org.rocksdb.Statistics;
 import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
+import org.tron.common.storage.WriteOptionsWrapper;
 import org.tron.common.utils.FileUtil;
 import org.tron.common.utils.PropUtil;
 import org.tron.core.db.common.DbSourceInter;
@@ -342,6 +343,25 @@ public class RocksDbDataSourceImpl implements DbSourceInter<byte[]>,
     resetDbLock.readLock().lock();
     try {
       updateByBatchInner(rows);
+    } catch (Exception e) {
+      try {
+        updateByBatchInner(rows);
+      } catch (Exception e1) {
+        throw new RuntimeException(e);
+      }
+    } finally {
+      resetDbLock.readLock().unlock();
+    }
+  }
+
+  @Override
+  public void updateByBatch(Map<byte[], byte[]> rows, WriteOptionsWrapper optionsWrapper) {
+    if (quitIfNotAlive()) {
+      return;
+    }
+    resetDbLock.readLock().lock();
+    try {
+      updateByBatchInner(rows, optionsWrapper.rocks);
     } catch (Exception e) {
       try {
         updateByBatchInner(rows);
