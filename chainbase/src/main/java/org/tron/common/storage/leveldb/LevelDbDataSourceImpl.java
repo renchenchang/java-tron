@@ -457,6 +457,6 @@ public class LevelDbDataSourceImpl implements DbSourceInter<byte[]>,
 
   @Override
   public LevelDbDataSourceImpl newInstance() {
-    return new LevelDbDataSourceImpl(parentPath, dataBaseName, options, writeOptions);
+    return new LevelDbDataSourceImpl(DBConfig.getOutputDirectoryByDbName(dataBaseName), dataBaseName, options, writeOptions);
   }
 }
