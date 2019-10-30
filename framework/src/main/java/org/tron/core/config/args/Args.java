@@ -626,12 +626,7 @@ public class Args {
     } else if (config.hasPath(Constant.LOCA_LWITENSS)) {
       INSTANCE.localWitnesses = new LocalWitnesses();
       List<String> localwitness = config.getStringList(Constant.LOCA_LWITENSS);
-      if (localwitness.size() > 1) {
-        logger.warn("localwitness size must be one, get the first one");
-        localwitness = localwitness.subList(0, 1);
-      }
       INSTANCE.localWitnesses.setPrivateKeys(localwitness);
-
       if (config.hasPath(Constant.LOCAL_WITNESS_ACCOUNT_ADDRESS)) {
         byte[] bytes = Commons
             .decodeFromBase58Check(config.getString(Constant.LOCAL_WITNESS_ACCOUNT_ADDRESS));

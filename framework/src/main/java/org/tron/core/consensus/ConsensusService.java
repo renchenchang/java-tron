@@ -39,18 +39,24 @@ public class ConsensusService {
     param.setBlockProduceTimeoutPercent(Args.getInstance().getBlockProducedTimeOut());
     param.setNeedSyncCheck(args.isNeedSyncCheck());
     List<Miner> miners = new ArrayList<>();
-    byte[] privateKey = ByteArray
-        .fromHexString(Args.getInstance().getLocalWitnesses().getPrivateKey());
-    byte[] privateKeyAddress = ECKey.fromPrivate(privateKey).getAddress();
-    byte[] witnessAddress = Args.getInstance().getLocalWitnesses().getWitnessAccountAddress();
-    WitnessCapsule witnessCapsule = witnessStore.get(witnessAddress);
-    if (null == witnessCapsule) {
-      logger.warn("Witness {} is not in witnessStore.", Hex.encodeHexString(witnessAddress));
-    } else {
-      Miner miner = param.new Miner(privateKey, ByteString.copyFrom(privateKeyAddress),
-          ByteString.copyFrom(witnessAddress));
+
+    List<String> privateKeys = args.getLocalWitnesses().getPrivateKeys();
+    for (String pKey : privateKeys) {
+      byte[] privateKey = ByteArray.fromHexString(pKey);
+      byte[] address = ECKey.fromPrivate(privateKey).getAddress();
+      if (witnessStore.get(address) == null) {
+        logger.warn("Witness {} is not in witnessStore.", Hex.encodeHexString(address));
+      }
+      Miner miner = param.new Miner(privateKey, ByteString.copyFrom(address),
+          ByteString.copyFrom(address));
       miners.add(miner);
     }
+
+    if (privateKeys.size() == 1) {
+      miners.get(0).setWitnessAddress(
+          ByteString.copyFrom(args.getLocalWitnesses().getWitnessAccountAddress()));
+    }
+
     param.setMiners(miners);
     param.setBlockHandle(blockHandle);
     consensus.start(param);
