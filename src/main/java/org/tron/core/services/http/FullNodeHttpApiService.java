@@ -167,7 +167,7 @@ public class FullNodeHttpApiService implements Service {
   @Autowired
   private GetAccountByIdServlet getAccountByIdServlet;
   @Autowired
-  private GetBlockHeaderByLimitNextServlet getBlockerByLimitNextServlet;
+  private GetBlockHeaderByLimitNextServlet getBlockHeaderByLimitNextServlet;
   @Autowired
   private GetBrokerageServlet getBrokerageServlet;
   @Autowired
