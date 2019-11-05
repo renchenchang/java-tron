@@ -7,6 +7,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.util.Arrays;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import org.spongycastle.util.encoders.Hex;
 import org.tron.common.utils.Commons;
 import org.tron.core.capsule.AccountCapsule;
 import org.tron.core.capsule.TransactionResultCapsule;
@@ -141,6 +142,8 @@ public class TransferActuator extends AbstractActuator {
       }
 
       if (balance < Math.addExact(amount, fee)) {
+        logger.error("### ownerAddress{} balance {}, amount {}, fee {}, ow", balance, amount, fee,
+            Hex.toHexString(ownerAddress));
         throw new ContractValidateException(
             "Validate TransferContract error, balance is not sufficient.");
       }
