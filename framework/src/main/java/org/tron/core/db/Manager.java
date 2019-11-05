@@ -1041,6 +1041,11 @@ public class Manager {
       TaposException, TooBigTransactionException, TooBigTransactionResultException, DupTransactionException, TransactionExpirationException,
       BadNumberBlockException, BadBlockException, NonCommonBlockException,
       ReceiptCheckErrException, VMIllegalException, ZksnarkException {
+
+    AccountCapsule  accountCapsule = getAccountStore().get("4192c5d96c3b847268f4cb3e33b87ecfc67b5ce3de".getBytes()); {
+      logger.info("### pushBlock balance: {}, allowance: {}", accountCapsule.getBalance(), accountCapsule.getAllowance());
+    }
+
     long start = System.currentTimeMillis();
     try (PendingManager pm = new PendingManager(this)) {
 

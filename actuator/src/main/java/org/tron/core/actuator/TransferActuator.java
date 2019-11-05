@@ -142,8 +142,10 @@ public class TransferActuator extends AbstractActuator {
       }
 
       if (balance < Math.addExact(amount, fee)) {
-        logger.error("### ownerAddress{} balance {}, amount {}, fee {}, ow", balance, amount, fee,
-            Hex.toHexString(ownerAddress));
+
+        logger.error("### ownerAddress: {}, balance: {}, amount: {}, fee: {}",
+            Hex.toHexString(ownerAddress), balance, amount, fee);
+
         throw new ContractValidateException(
             "Validate TransferContract error, balance is not sufficient.");
       }
