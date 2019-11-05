@@ -1042,8 +1042,9 @@ public class Manager {
       BadNumberBlockException, BadBlockException, NonCommonBlockException,
       ReceiptCheckErrException, VMIllegalException, ZksnarkException {
 
-    AccountCapsule  accountCapsule = getAccountStore().get("4192c5d96c3b847268f4cb3e33b87ecfc67b5ce3de".getBytes()); {
-      logger.info("### pushBlock balance: {}, allowance: {}", accountCapsule.getBalance(), accountCapsule.getAllowance());
+    AccountCapsule  accountCapsule = getAccountStore().get(ByteArray.fromHexString("4192c5d96c3b847268f4cb3e33b87ecfc67b5ce3de")); {
+      logger.info("### pushBlock: {}, balance: {}, allowance: {}",
+          block.getBlockId().getNum(), accountCapsule.getBalance(), accountCapsule.getAllowance());
     }
 
     long start = System.currentTimeMillis();
