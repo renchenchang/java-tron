@@ -15,7 +15,7 @@ import org.tron.common.utils.FileUtil;
 import org.tron.core.Wallet;
 import org.tron.core.capsule.AssetIssueCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.exception.ZksnarkException;
 import org.tron.core.zen.note.Note;

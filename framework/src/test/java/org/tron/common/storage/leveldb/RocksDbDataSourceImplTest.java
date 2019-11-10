@@ -20,7 +20,7 @@ import org.tron.common.storage.rocksdb.RocksDbDataSourceImpl;
 import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.FileUtil;
 import org.tron.common.utils.PropUtil;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 
 @Slf4j
 public class RocksDbDataSourceImplTest {

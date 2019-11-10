@@ -15,7 +15,7 @@ import org.tron.common.utils.FileUtil;
 import org.tron.core.Constant;
 import org.tron.core.capsule.BlockCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.exception.BadNumberBlockException;
 import org.tron.core.exception.UnLinkedBlockException;
 import org.tron.protos.Protocol.Block;

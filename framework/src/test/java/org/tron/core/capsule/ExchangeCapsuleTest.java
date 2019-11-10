@@ -14,7 +14,7 @@ import org.tron.common.utils.FileUtil;
 import org.tron.core.Constant;
 import org.tron.core.Wallet;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.db.StorageMarket;
 import org.tron.core.exception.ItemNotFoundException;

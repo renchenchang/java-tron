@@ -21,7 +21,7 @@ import org.tron.common.crypto.ECKey;
 import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.Utils;
 import org.tron.core.Wallet;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.protos.Protocol.Account;
 import stest.tron.wallet.common.client.Configuration;
 import stest.tron.wallet.common.client.Parameter.CommonConstant;

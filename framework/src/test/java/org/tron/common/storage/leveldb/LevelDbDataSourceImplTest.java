@@ -37,7 +37,7 @@ import org.junit.Test;
 import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.FileUtil;
 import org.tron.core.Constant;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 
 @Slf4j
 public class LevelDbDataSourceImplTest {

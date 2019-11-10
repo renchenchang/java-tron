@@ -19,7 +19,7 @@ import org.tron.core.capsule.AssetIssueCapsule;
 import org.tron.core.capsule.TransactionCapsule;
 import org.tron.core.capsule.TransactionResultCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.BandwidthProcessor;
 import org.tron.core.db.Manager;
 import org.tron.core.db.TransactionTrace;

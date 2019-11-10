@@ -17,7 +17,7 @@ import org.tron.common.application.TronApplicationContext;
 import org.tron.common.utils.FileUtil;
 import org.tron.core.Constant;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.AbstractRevokingStore;
 import org.tron.core.db.RevokingDatabase;
 import org.tron.core.db.TronStoreWithRevoking;

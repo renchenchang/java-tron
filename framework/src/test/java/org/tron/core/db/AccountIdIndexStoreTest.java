@@ -13,7 +13,7 @@ import org.tron.core.Constant;
 import org.tron.core.Wallet;
 import org.tron.core.capsule.AccountCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.store.AccountIdIndexStore;
 import org.tron.protos.Protocol.AccountType;
 

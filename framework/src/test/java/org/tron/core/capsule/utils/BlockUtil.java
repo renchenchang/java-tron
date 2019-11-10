@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.tron.common.utils.ByteArray;
 import org.tron.core.capsule.BlockCapsule;
-import org.tron.core.config.args.Args;
-import org.tron.core.config.args.GenesisBlock;
+import org.tron.core.config.args.Args.Args;
+import org.tron.core.config.args.Args.GenesisBlock;
 import org.tron.protos.Protocol.Transaction;
 
 public class BlockUtil {

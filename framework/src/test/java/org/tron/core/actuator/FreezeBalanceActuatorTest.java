@@ -1,7 +1,7 @@
 package org.tron.core.actuator;
 
 import static junit.framework.TestCase.fail;
-import static org.tron.core.config.args.Parameter.ChainConstant.TRANSFER_FEE;
+import static org.tron.core.config.args.Args.Parameter.ChainConstant.TRANSFER_FEE;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
@@ -23,7 +23,7 @@ import org.tron.core.capsule.DelegatedResourceCapsule;
 import org.tron.core.capsule.TransactionResultCapsule;
 import org.tron.core.config.DefaultConfig;
 import org.tron.core.config.Parameter.ChainConstant;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.exception.ContractExeException;
 import org.tron.core.exception.ContractValidateException;

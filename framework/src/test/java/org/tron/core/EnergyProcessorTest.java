@@ -15,7 +15,7 @@ import org.tron.core.capsule.AccountCapsule;
 import org.tron.core.config.DefaultConfig;
 import org.tron.core.config.Parameter.AdaptiveResourceLimitConstants;
 import org.tron.core.config.Parameter.ChainConstant;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.EnergyProcessor;
 import org.tron.core.db.Manager;
 import org.tron.protos.Protocol.AccountType;

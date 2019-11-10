@@ -14,7 +14,7 @@ import org.tron.core.Constant;
 import org.tron.core.Wallet;
 import org.tron.core.capsule.BytesCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.store.NullifierStore;
 
 public class NullifierStoreTest {

@@ -5,7 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testng.Assert;
 import org.tron.common.utils.ByteArray;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.exception.BadItemException;
 import org.tron.core.exception.ZksnarkException;
 import org.tron.core.services.http.FullNodeHttpApiService;

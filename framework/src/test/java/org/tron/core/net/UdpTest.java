@@ -16,7 +16,7 @@ import org.tron.common.net.udp.message.discover.PingMessage;
 import org.tron.common.net.udp.message.discover.PongMessage;
 import org.tron.common.overlay.discover.node.Node;
 import org.tron.common.overlay.discover.node.NodeManager;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 
 @Slf4j
 public class UdpTest {

@@ -1,4 +1,4 @@
-package org.tron.common.storage.rocksdb;
+package org.tron.core.setting;
 
 import lombok.Getter;
 import lombok.Setter;

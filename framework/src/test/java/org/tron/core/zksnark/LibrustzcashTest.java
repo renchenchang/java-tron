@@ -45,7 +45,7 @@ import org.tron.core.capsule.IncrementalMerkleTreeCapsule;
 import org.tron.core.capsule.PedersenHashCapsule;
 import org.tron.core.capsule.SpendDescriptionCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.exception.BadItemException;
 import org.tron.core.exception.ZksnarkException;
 import org.tron.core.services.http.FullNodeHttpApiService;

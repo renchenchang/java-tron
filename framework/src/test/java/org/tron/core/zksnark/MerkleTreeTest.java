@@ -25,7 +25,7 @@ import org.tron.core.capsule.IncrementalMerkleTreeCapsule;
 import org.tron.core.capsule.IncrementalMerkleVoucherCapsule;
 import org.tron.core.capsule.PedersenHashCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.protos.contract.ShieldContract.PedersenHash;
 

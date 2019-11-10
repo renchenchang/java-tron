@@ -21,7 +21,7 @@ import org.tron.core.capsule.AccountCapsule;
 import org.tron.core.capsule.ContractCapsule;
 import org.tron.core.capsule.TransactionCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.db.TransactionContext;
 import org.tron.core.exception.ContractExeException;

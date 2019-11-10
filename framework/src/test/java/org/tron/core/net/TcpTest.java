@@ -32,7 +32,7 @@ import org.tron.common.overlay.server.SyncPool;
 import org.tron.common.utils.ReflectUtils;
 import org.tron.core.capsule.BlockCapsule;
 import org.tron.core.capsule.BlockCapsule.BlockId;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.net.message.BlockMessage;
 import org.tron.core.net.peer.PeerConnection;

@@ -23,7 +23,7 @@ import org.tron.core.capsule.IncrementalMerkleVoucherCapsule;
 import org.tron.core.capsule.PedersenHashCapsule;
 import org.tron.core.capsule.TransactionCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.exception.ZksnarkException;
 import org.tron.protos.Protocol.Block;

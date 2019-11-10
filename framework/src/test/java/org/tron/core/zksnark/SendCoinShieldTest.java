@@ -50,7 +50,7 @@ import org.tron.core.capsule.SpendDescriptionCapsule;
 import org.tron.core.capsule.TransactionCapsule;
 import org.tron.core.capsule.TransactionResultCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.exception.AccountResourceInsufficientException;
 import org.tron.core.exception.BadItemException;

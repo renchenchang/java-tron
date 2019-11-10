@@ -14,7 +14,7 @@ import org.tron.api.GrpcAPI.Note;
 import org.tron.common.crypto.ECKey;
 import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.Utils;
-import org.tron.core.config.args.Args;
+import org.tron.core.config.args.Args.Args;
 import stest.tron.wallet.common.client.Configuration;
 import stest.tron.wallet.common.client.utils.HttpMethed;
 import stest.tron.wallet.common.client.utils.PublicMethed;
