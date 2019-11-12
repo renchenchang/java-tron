@@ -1,8 +1,6 @@
 package org.tron.core;
 
-
-import static org.tron.core.config.args.Args.Parameter.ChainConstant.TRANSFER_FEE;
-
+import static org.tron.core.config.args.Parameter.ChainConstant.TRANSFER_FEE;
 import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
 import java.io.File;
@@ -17,7 +15,7 @@ import org.tron.common.utils.ByteArray;
 import org.tron.common.utils.FileUtil;
 import org.tron.core.capsule.AccountCapsule;
 import org.tron.core.config.DefaultConfig;
-import org.tron.core.config.args.Args.Args;
+import org.tron.core.config.args.Args;
 import org.tron.core.db.Manager;
 import org.tron.core.db.StorageMarket;
 import org.tron.protos.Protocol.AccountType;
