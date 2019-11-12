@@ -6,7 +6,6 @@ import static org.tron.consensus.base.Constant.BLOCK_PRODUCE_TIMEOUT_PERCENT;
 import static org.tron.core.Constant.ADD_PRE_FIX_BYTE_MAINNET;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigObject;
 import io.grpc.internal.GrpcUtil;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +47,7 @@ import org.tron.common.utils.Commons;
 import org.tron.common.utils.DBConfig;
 import org.tron.core.Constant;
 import org.tron.core.Wallet;
-import org.tron.core.args.CommonArgs;
+import org.tron.core.args.CommonParameter;
 import org.tron.core.args.RateLimiterInitialization;
 import org.tron.core.config.Configuration;
 import org.tron.core.config.DbBackupConfig;
@@ -65,7 +63,7 @@ import org.tron.program.Version;
 @Slf4j(topic = "app")
 @NoArgsConstructor
 @Component
-public class Args extends CommonArgs {
+public class Args extends CommonParameter {
 
   public static final Args INSTANCE = new Args();
 
