@@ -239,6 +239,42 @@ public class Wallet {
     }
   }
 
+  private static boolean isConstant(SmartContract.ABI abi, byte[] selector) {
+
+    if (selector == null || selector.length != 4
+        || abi.getEntrysList().size() == 0) {
+      return false;
+    }
+
+    for (int i = 0; i < abi.getEntrysCount(); i++) {
+      ABI.Entry entry = abi.getEntrys(i);
+      if (entry.getType() != ABI.Entry.EntryType.Function) {
+        continue;
+      }
+
+      int inputCount = entry.getInputsCount();
+      StringBuilder sb = new StringBuilder();
+      sb.append(entry.getName());
+      sb.append("(");
+      for (int k = 0; k < inputCount; k++) {
+        ABI.Entry.Param param = entry.getInputs(k);
+        sb.append(param.getType());
+        if (k + 1 < inputCount) {
+          sb.append(",");
+        }
+      }
+      sb.append(")");
+
+      byte[] funcSelector = new byte[4];
+      System.arraycopy(Hash.sha3(sb.toString().getBytes()), 0, funcSelector, 0, 4);
+      if (Arrays.equals(funcSelector, selector)) {
+        return entry.getConstant() || entry.getStateMutability().equals(StateMutabilityType.View);
+      }
+    }
+
+    return false;
+  }
+
   public static String getAddressPreFixString() {
     return addressPreFixString;
   }
@@ -327,12 +363,6 @@ public class Wallet {
 
   }
 
-  // for `CREATE2`
-  public static byte[] generateContractAddress2(byte[] address, byte[] salt, byte[] code) {
-    byte[] mergedData = ByteUtil.merge(address, salt, Hash.sha3(code));
-    return Hash.sha3omit12(mergedData);
-  }
-
   // for `CREATE`
   public static byte[] generateContractAddress(byte[] transactionRootId, long nonce) {
     byte[] nonceBytes = Longs.toByteArray(nonce);
@@ -341,6 +371,12 @@ public class Wallet {
     System.arraycopy(nonceBytes, 0, combined, transactionRootId.length, nonceBytes.length);
 
     return Hash.sha3omit12(combined);
+  }
+
+  // for `CREATE2`
+  public static byte[] generateContractAddress2(byte[] address, byte[] salt, byte[] code) {
+    byte[] mergedData = ByteUtil.merge(address, salt, Hash.sha3(code));
+    return Hash.sha3omit12(mergedData);
   }
 
   public static byte[] tryDecodeFromBase58Check(String address) {
@@ -385,57 +421,14 @@ public class Wallet {
   }
 
   private static byte[] getSelector(byte[] data) {
-    if (data == null ||
-        data.length < 4) {
+    if (data == null
+        || data.length < 4) {
       return null;
     }
 
     byte[] ret = new byte[4];
     System.arraycopy(data, 0, ret, 0, 4);
     return ret;
-  }
-
-  /**
-   * Create a transaction.
-   */
-  /*public Transaction createTransaction(byte[] address, String to, long amount) {
-    long balance = getBalance(address);
-    return new TransactionCapsule(address, to, amount, balance, utxoStore).getInstance();
-  } */
-  private static boolean isConstant(SmartContract.ABI abi, byte[] selector) {
-
-    if (selector == null || selector.length != 4
-        || abi.getEntrysList().size() == 0) {
-      return false;
-    }
-
-    for (int i = 0; i < abi.getEntrysCount(); i++) {
-      ABI.Entry entry = abi.getEntrys(i);
-      if (entry.getType() != ABI.Entry.EntryType.Function) {
-        continue;
-      }
-
-      int inputCount = entry.getInputsCount();
-      StringBuilder sb = new StringBuilder();
-      sb.append(entry.getName());
-      sb.append("(");
-      for (int k = 0; k < inputCount; k++) {
-        ABI.Entry.Param param = entry.getInputs(k);
-        sb.append(param.getType());
-        if (k + 1 < inputCount) {
-          sb.append(",");
-        }
-      }
-      sb.append(")");
-
-      byte[] funcSelector = new byte[4];
-      System.arraycopy(Hash.sha3(sb.toString().getBytes()), 0, funcSelector, 0, 4);
-      if (Arrays.equals(funcSelector, selector)) {
-        return entry.getConstant() || entry.getStateMutability().equals(StateMutabilityType.View);
-      }
-    }
-
-    return false;
   }
 
   public byte[] getAddress() {
@@ -1340,6 +1333,7 @@ public class Wallet {
     try {
       block = dbManager.getBlockStore().get(blockId.toByteArray()).getInstance();
     } catch (StoreException e) {
+      logger.error(e.getMessage());
     }
     return block;
   }
@@ -1411,6 +1405,7 @@ public class Wallet {
       proposalCapsule = dbManager.getProposalStore()
           .get(proposalId.toByteArray());
     } catch (StoreException e) {
+      logger.error(e.getMessage());
     }
     if (proposalCapsule != null) {
       return proposalCapsule.getInstance();
@@ -1468,7 +1463,8 @@ public class Wallet {
 
   //in:outPoint,out:blockNumber
   private IncrementalMerkleVoucherContainer createWitness(OutputPoint outPoint, Long blockNumber)
-      throws ItemNotFoundException, BadItemException, InvalidProtocolBufferException, ZksnarkException {
+      throws ItemNotFoundException, BadItemException,
+      InvalidProtocolBufferException, ZksnarkException {
     if (!getFullNodeAllowShieldedTransaction()) {
       throw new ZksnarkException(SHIELDED_ID_NOT_ALLOWED);
     }
@@ -1704,7 +1700,8 @@ public class Wallet {
 
     int synBlockNum = request.getBlockNum();
     if (synBlockNum != 0) {
-      //According to the blockNum in the request, obtain the block before [block2+1, blockNum], and update the two witnesses.
+      // According to the blockNum in the request, obtain the block before [block2+1,
+      // blockNum], and update the two witnesses.
       updateWitnesses(witnessList, largeBlockNum + 1, synBlockNum);
     }
 
@@ -1730,7 +1727,9 @@ public class Wallet {
         return IncrementalMerkleTree
             .parseFrom(dbManager.getMerkleTreeIndexStore().get(blockNum));
       }
-    } catch (Exception ex) { }
+    } catch (Exception ex) {
+      logger.error(ex.getMessage());
+    }
 
     return null;
   }
@@ -2397,7 +2396,8 @@ public class Wallet {
     AccountCapsule accountCapsule = dbManager.getAccountStore().get(address);
     if (accountCapsule == null) {
       logger.error(
-          "Get contract failed, the account does not exist or the account does not have a code hash!");
+          "Get contract failed, the account does not exist or the account "
+              + "does not have a code hash!");
       return null;
     }
 

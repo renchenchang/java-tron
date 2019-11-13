@@ -792,7 +792,8 @@ public class Args extends CommonParameter {
         file.getParentFile().mkdirs();
         try (Writer w = new FileWriter(file)) {
           props.store(w,
-              "Generated NodeID. To use your own nodeId please refer to 'peer.privateKey' config option.");
+              "Generated NodeID. To use your own nodeId please refer to "
+                  + "'peer.privateKey' config option.");
         }
         logger.info("New nodeID generated: " + props.getProperty("nodeId"));
         logger.info("Generated nodeID and its private key stored in " + file);
